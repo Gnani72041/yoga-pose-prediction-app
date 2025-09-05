@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga Pose Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('../static/bkg3.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            text-align: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header nav a {
+            font-family: 'Lucida Sans', Geneva, Verdana, sans-serif;
+            margin: 0 15px;
+            font-size: 20px;
+            color: #333;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        header nav a.active {
+            color: #007bff;
+        }
+
+        h1 {
+            margin-top: 70px;
+            font-size: 24px;
+        }
+
+        img {
+            margin-top: 20px;
+            width: 60%;
+            border-radius: 8px;
+        }
+
+        footer {
+            background-color: rgba(255, 255, 255, 0.5);
+            width: 100%;
+            padding: 5px 0;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            font-size: 16px;
+        }
+
+        @media screen and (max-width: 600px) {
+            header nav a {
+                font-size: 18px;
+                margin: 0 10px;
+            }
+
+            h1 {
+                font-size: 20px;
+                margin-top: 60px;
+            }
+
+            img {
+                width: 90%;
+            }
+
+            footer {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <a href="/" class="active">Home</a>
+    </nav>
+</header>
+
+<main>
+    <h1>Yoga Pose Prediction Result</h1>
+
+    <div class="prediction-box">
+        <h2>Prediction Result</h2>
+        <img src="data:image/png;base64,{{ plot_base64 }}" alt="Prediction Plot">
+        <p><strong>Prediction:</strong> {{ prediction }}</p>
+    </div>
+
+    <h2>Model Training Results</h2>
+
+    <h3>Accuracy and Loss Over Epochs</h3>
+    <img src="/static/accuracy_plot.png" alt="Accuracy Plot" width="60%">
+    <img src="/static/loss_plot.png" alt="Loss Plot" width="60%">
+
+    <h3>Per-Class Metrics</h3>
+    <table>
+        <tr><th>Class</th><th>Precision</th><th>Recall</th><th>F1 Score</th></tr>
+        {% for row in metrics %}
+        <tr><td>{{ row.Class }}</td><td>{{ row.Precision }}</td><td>{{ row.Recall }}</td><td>{{ row['F1 Score'] }}</td></tr>
+        {% endfor %}
+    </table>
+
+    <h3>Confusion Matrix</h3>
+    <img src="/static/confusion_matrix.png" alt="Confusion Matrix" width="70%">
+</main>
+
+
+<footer>
+    <p>&copy; 2024 All rights reserved</p>
+</footer>
+</body>
+</html>
